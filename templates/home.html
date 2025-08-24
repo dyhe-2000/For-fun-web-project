@@ -1,10 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Outel Corporation</h1>
+
   {% if user %}
     <h2>Welcome, {{ user }}!</h2>
   {% else %}
     <h2>Welcome, Guest!</h2>
     <p>Please login or register.</p>
   {% endif %}
+
+  <!-- Animated Image -->
+  <div class="image-throw">
+    <img src="{{ url_for('static', filename='images/dog.png') }}" alt="Dog Animation">
+  </div>
 {% endblock %}

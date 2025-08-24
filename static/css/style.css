@@ -1,33 +1,30 @@
-body { 
-    font-family: Arial, sans-serif; 
-    margin: 20px; 
-    background-color: #fffafc;
+/* Image throw animation */
+.image-throw {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
   }
   
-  nav a { 
-    margin-right: 10px; 
+  .image-throw img {
+    width: 150px;
+    animation: throwOut 3s ease-in-out infinite;
   }
   
-  .error { 
-    color: red; 
-  }
-  
-  .container { 
-    margin-top: 20px; 
-  }
-  
-  /* Flower decorations */
-  .flowers {
-    font-size: 24px;
-    text-align: center;
-    margin: 15px 0;
-  }
-  
-  .login-form {
-    padding: 15px;
-    border: 2px solid pink;
-    display: inline-block;
-    background: #fff0f6;
-    border-radius: 10px;
+  @keyframes throwOut {
+    0% {
+      transform: translateY(0) scale(0.8) rotate(0deg);
+      opacity: 0;
+    }
+    30% {
+      transform: translateY(-80px) scale(1.1) rotate(15deg);
+      opacity: 1;
+    }
+    60% {
+      transform: translateY(20px) scale(1) rotate(-10deg);
+    }
+    100% {
+      transform: translateY(0) scale(0.9) rotate(0deg);
+      opacity: 0;
+    }
   }
   
