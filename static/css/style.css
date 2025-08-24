@@ -1,4 +1,33 @@
-body { font-family: Arial, sans-serif; margin: 20px; }
-nav a { margin-right: 10px; }
-.error { color: red; }
-.container { margin-top: 20px; }
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 20px; 
+    background-color: #fffafc;
+  }
+  
+  nav a { 
+    margin-right: 10px; 
+  }
+  
+  .error { 
+    color: red; 
+  }
+  
+  .container { 
+    margin-top: 20px; 
+  }
+  
+  /* Flower decorations */
+  .flowers {
+    font-size: 24px;
+    text-align: center;
+    margin: 15px 0;
+  }
+  
+  .login-form {
+    padding: 15px;
+    border: 2px solid pink;
+    display: inline-block;
+    background: #fff0f6;
+    border-radius: 10px;
+  }
+  
