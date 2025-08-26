@@ -9,6 +9,7 @@
   <nav>
     <a href="{{ url_for('home') }}">Home</a>
     {% if user %}
+      <a href="{{ url_for('users_list') }}">Users</a>
       <a href="{{ url_for('logout') }}">Logout ({{ user }})</a>
     {% else %}
       <a href="{{ url_for('login') }}">Login</a>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Registered Users</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Registration Date & Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for u in users %}
+      <tr>
+        <td>{{ u.username }}</td>
+        <td>{{ u.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

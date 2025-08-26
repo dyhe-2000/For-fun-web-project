@@ -3,6 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from flask import abort
+from datetime import datetime
+import re
+
 
 app = Flask(__name__)
 app.secret_key = "YOUR_SECRET_KEY"  # replace with a strong random value
@@ -17,7 +20,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(200), nullable=False)
-    is_admin = db.Column(db.Boolean, default=False)  # <-- new field
+    is_admin = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 def admin_required(f):
     @wraps(f)
@@ -40,6 +44,19 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+
+# Password validation
+        errors = []
+        if len(password) < 8:
+            errors.append("Password must be at least 8 characters.")
+        if not re.search(r"[A-Za-z]", password):
+            errors.append("Password must include at least one letter.")
+        if not re.search(r"[0-9]", password):
+            errors.append("Password must include at least one number.")
+
+        if errors:
+            return render_template("register.html", errors=errors)
+
         hashed_pw = generate_password_hash(password, method="pbkdf2:sha256")
 
         new_user = User(username=username, password=hashed_pw)
@@ -61,6 +78,13 @@ def login():
             return redirect(url_for("home"))
         return render_template("login.html", error="Invalid credentials")
     return render_template("login.html")
+
+@app.route("/users")
+def users_list():
+    if "username" not in session:
+        return redirect(url_for("login"))
+    users = User.query.order_by(User.created_at.desc()).all()
+    return render_template("users.html", users=users)
 
 @app.route("/logout")
 def logout():

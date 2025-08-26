@@ -1,9 +1,73 @@
 {% extends "base.html" %}
 {% block content %}
-  <h2>Register</h2>
-  <form method="POST">
+<h2>Register</h2>
+<form method="POST" id="registerForm">
     <input type="text" name="username" placeholder="Username" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
+    <input type="password" name="password" placeholder="Password" id="password" required><br>
+
+    <ul id="password-requirements">
+        <li id="length" class="invalid">At least 8 characters</li>
+        <li id="letter" class="invalid">At least one letter</li>
+        <li id="number" class="invalid">At least one number</li>
+    </ul>
+
     <button type="submit">Register</button>
-  </form>
+</form>
+
+{% if errors %}
+  <ul class="error">
+    {% for e in errors %}
+      <li>{{ e }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<script>
+const password = document.getElementById("password");
+const lengthReq = document.getElementById("length");
+const letterReq = document.getElementById("letter");
+const numberReq = document.getElementById("number");
+
+password.addEventListener("input", () => {
+    const val = password.value;
+
+    // Length
+    if(val.length >= 8){
+        lengthReq.classList.remove("invalid");
+        lengthReq.classList.add("valid");
+    } else {
+        lengthReq.classList.remove("valid");
+        lengthReq.classList.add("invalid");
+    }
+
+    // Letter
+    if(/[A-Za-z]/.test(val)){
+        letterReq.classList.remove("invalid");
+        letterReq.classList.add("valid");
+    } else {
+        letterReq.classList.remove("valid");
+        letterReq.classList.add("invalid");
+    }
+
+    // Number
+    if(/[0-9]/.test(val)){
+        numberReq.classList.remove("invalid");
+        numberReq.classList.add("valid");
+    } else {
+        numberReq.classList.remove("valid");
+        numberReq.classList.add("invalid");
+    }
+});
+</script>
+
+<style>
+#password-requirements {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 5px;
+}
+
+#password-requirements li.invalid { color: red; }
+#password-requirements li.valid { color: green; }
+</style>
 {% endblock %}
